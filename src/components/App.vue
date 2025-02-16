@@ -7,6 +7,7 @@ import { ref, onMounted } from "vue";
 import Home from "./Home.vue";
 import ValidatorTool from "./ValidatorTool.vue";
 import VoterRegistration from "./VoterRegistration.vue";
+import CandidateRegistration from "./CandidateRegistration.vue";
 import Vote from "./Vote.vue";
 import Results from "./Results.vue";
 
@@ -29,6 +30,7 @@ export default {
       const currentPath = locationHash.value.slice(1).split('?')[0] || "/";
       if (currentPath === "/") return Home;
       if (currentPath === "/registration") return VoterRegistration;
+      if (currentPath === "/candidate") return CandidateRegistration;
       if (currentPath === "/vote") return Vote;
       if (currentPath === "/results") return Results;
       if (currentPath === "/validator") return ValidatorTool;

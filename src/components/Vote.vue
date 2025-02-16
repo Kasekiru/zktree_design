@@ -1,120 +1,142 @@
 <template>
-  <main role="main" class="container">
-    <div style="padding-top: 7rem" class="d-none d-lg-block"></div>
-    <div class="row justify-content-md-center">
-      <div class="col-lg-4">
-        <div class="text-center vstack gap-3">
-          <h1>Vote</h1>
-          Choose one option
-          <div class="btn-group-vertical" role="group">
-            <input
-              type="radio"
-              class="btn-check"
-              name="vbtn-radio"
-              id="vbtn-radio1"
-              @click="option = 1"
-            />
-            <label class="btn btn-outline-dark" for="vbtn-radio1"
-              >1st option</label
-            >
-            <input
-              type="radio"
-              class="btn-check"
-              name="vbtn-radio"
-              id="vbtn-radio2"
-              @click="option = 2"
-            />
-            <label class="btn btn-outline-dark" for="vbtn-radio2"
-              >2nd option</label
-            >
-            <input
-              type="radio"
-              class="btn-check"
-              name="vbtn-radio"
-              id="vbtn-radio3"
-              @click="option = 3"
-            />
-            <label class="btn btn-outline-dark" for="vbtn-radio3"
-              >3rd option</label
-            >
-            <input
-              type="radio"
-              class="btn-check"
-              name="vbtn-radio"
-              id="vbtn-radio4"
-              @click="option = 4"
-            />
-            <label class="btn btn-outline-dark" for="vbtn-radio4"
-              >4th option</label
-            >
+  <div class="fullscreen">
+    <header class="form-header">Pemberian Suara</header>
+    <div v-if="showForm" class="form-container">
+      <div class="flex-container">
+        <div class="container-input">
+          <div class="form-group">
+            <label>Commitment:</label>
+            <input type="text" v-model="commitment" class="styled-input" />
           </div>
-          <button class="btn btn-info" @click="sendToBlockchain">
-            Send to blockchain
-          </button>
-          <a href="#/" class="btn btn-primary">Back</a>
+          <div class="form-group">
+            <label>Secret:</label>
+            <input type="text" v-model="secret" class="styled-input" />
+          </div>
+          <div class="form-group">
+            <label>Nullifier:</label>
+            <input type="text" v-model="nullifier" class="styled-input" />
+          </div>
+        </div>
+        <div class="upload-section">
+          <span>Atau unggah file bukti untuk pengisian otomatis</span>
+          <button class="upload-button">Unggah file bukti</button>
         </div>
       </div>
+      <button class="next-button">Selanjutnya</button>
     </div>
-  </main>
+    <button v-else class="connect-button" @click="showForm = true">Hubungkan wallet Metamask</button>
+  </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import * as ethers from "ethers";
-import { calculateMerkleRootAndZKProof } from "zk-merkle-tree";
-
-const TREE_LEVELS = 20;
-
-export default defineComponent({
+export default {
   data() {
     return {
-      option: 0,
+      showForm: false,
+      commitment: '',
+      secret: '',
+      nullifier: ''
     };
-  },
-  methods: {
-    async sendToBlockchain() {
-      if (!this.option) {
-        alert("Please choose one!");
-        return;
-      }
-
-      const commitment = JSON.parse(
-        localStorage.getItem("zktree-vote-commitment")
-      );
-      if (!commitment) {
-        alert("No commitment generated, please register!");
-        return;
-      }
-
-      const abi = [
-        "function vote(uint _option,uint256 _nullifier,uint256 _root,uint[2] memory _proof_a,uint[2][2] memory _proof_b,uint[2] memory _proof_c)",
-      ];
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
-      const signer = provider.getSigner();
-      const contracts = await (await fetch("contracts.json")).json();
-      const contract = new ethers.Contract(contracts.zktreevote, abi, signer);
-      const cd = await calculateMerkleRootAndZKProof(
-        contracts.zktreevote,
-        signer,
-        TREE_LEVELS,
-        commitment,
-        "verifier.zkey"
-      );
-      try {
-        await contract.vote(
-          this.option,
-          cd.nullifierHash,
-          cd.root,
-          cd.proof_a,
-          cd.proof_b,
-          cd.proof_c
-        );
-        alert("Vote successfully sent to the blockchain!");
-      } catch (e) {
-        alert(e.reason || "An unexpected error occurred!");
-      }
-    },
-  },
-});
+  }
+};
 </script>
+
+<style>
+.fullscreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: white;
+}
+
+.form-header {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  background: #d3d3d3;
+  height: 15%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 600px;
+}
+
+.container-input {
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  width: 120px;
+  text-align: left;
+}
+
+.styled-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 30px;
+  background: #e0e0e0;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+}
+
+.upload-button {
+  padding: 6px 12px;
+  background: #d3d3d3;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 10%;
+}
+
+.next-button {
+  margin-top: 20px;
+  padding: 8px 15px;
+  background: #d3d3d3;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.connect-button {
+  margin-bottom: 20%;
+  padding: 3px;
+  background: lightgray;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+  text-align: center;
+}
+</style>

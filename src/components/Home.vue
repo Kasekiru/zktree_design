@@ -6,10 +6,10 @@
     <div class="right-section">
       <div class="card">
         <ul class="options">
-          <li><a href="#">Pendaftaran Kandidat</a></li>
-          <li><a href="#">Pendaftaran Pemilih</a></li>
-          <li><a href="#">Pemberian Suara</a></li>
-          <li><a href="#">Hasil Pemilihan</a></li>
+          <li><a href="/#/candidate">Pendaftaran Kandidat</a></li>
+          <li><a href="/#/registration">Pendaftaran Pemilih</a></li>
+          <li><a href="/#/vote">Pemberian Suara</a></li>
+          <li><a href="/#/results">Hasil Pemilihan</a></li>
         </ul>
       </div>
     </div>
