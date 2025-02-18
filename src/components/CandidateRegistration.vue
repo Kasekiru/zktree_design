@@ -66,7 +66,7 @@ export default {
 
 .form-header {
   font-size: 2rem;
-  font-weight: bold;
+  /* font-weight: bold; */
   text-align: center;
   background: #d3d3d3;
   height: 15%;
@@ -74,6 +74,7 @@ export default {
   top: 0;
   width: 100%;
   padding: 20px 0;
+  color: gray;
 }
 
 .form-content {
@@ -84,13 +85,13 @@ export default {
 
 .sub-text {
   font-size: 1rem;
-  color: gray;
+  /* color: gray; */
 }
 
 .divider {
   width: 80%;
   height: 1px;
-  background: gray;
+  /* background: gray; */
   margin: 15px auto;
 }
 
@@ -111,7 +112,7 @@ export default {
 .form-group label {
   flex: 1;
   text-align: left;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .form-group input {
@@ -128,8 +129,8 @@ export default {
   width: 20%;
   padding: 12px;
   font-size: 1.1rem;
-  font-weight: bold;
-  background: #b0b0b0;
+  /* font-weight: bold; */
+  background: #ccc;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -138,7 +139,7 @@ export default {
 }
 
 .submit-btn:hover {
-  background: #a0a0a0;
+  background: #b0b0b0;
 }
 
 h1 {

@@ -69,7 +69,7 @@ export default {
 <style scoped>
 .form-header {
   font-size: 2rem;
-  font-weight: bold;
+  /* font-weight: bold; */
   text-align: center;
   background: #d3d3d3;
   height: 15%;
@@ -77,6 +77,7 @@ export default {
   top: 0;
   width: 100%;
   padding: 20px 0;
+  color: gray;
 }
 
 .table-container {
