@@ -13,12 +13,20 @@
         </ul>
       </div>
     </div>
+    <div class="help-button" @click="goToHelp">
+      ?
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "Home",
+  methods: {
+    goToHelp() {
+      window.location.href = "/#/guide"; // Ganti dengan route halaman panduan voting
+    },
+  },
 };
 </script>
 
@@ -95,4 +103,29 @@ body, html {
   transform: scale(1.08);
   box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.3);
 }
+
+.help-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: #f39c12;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.help-button:hover {
+  transform: scale(1.1);
+  box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.4);
+}
+
 </style>

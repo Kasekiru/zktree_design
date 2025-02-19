@@ -10,6 +10,7 @@ import VoterRegistration from "./VoterRegistration.vue";
 import CandidateRegistration from "./CandidateRegistration.vue";
 import Vote from "./Vote.vue";
 import Results from "./Results.vue";
+import Guide from "./Guide.vue";
 
 export default {
   setup() {
@@ -34,6 +35,7 @@ export default {
       if (currentPath === "/vote") return Vote;
       if (currentPath === "/results") return Results;
       if (currentPath === "/validator") return ValidatorTool;
+      if (currentPath === "/guide") return Guide;
     };
 
     return {
