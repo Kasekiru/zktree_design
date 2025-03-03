@@ -13,9 +13,9 @@
         </ul>
       </div>
     </div>
-    <div class="help-button" @click="goToHelp">
+    <!-- <div class="help-button" @click="goToHelp">
       ?
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -23,9 +23,9 @@
 export default {
   name: "Home",
   methods: {
-    goToHelp() {
-      window.location.href = "/#/guide"; // Ganti dengan route halaman panduan voting
-    },
+    // goToHelp() {
+    //   window.location.href = "/#/guide"; // Ganti dengan route halaman panduan voting
+    // },
   },
 };
 </script>
@@ -103,7 +103,7 @@ body, html {
   transform: scale(1.08);
   box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.3);
 }
-
+/* 
 .help-button {
   position: fixed;
   bottom: 20px;
@@ -127,5 +127,5 @@ body, html {
   transform: scale(1.1);
   box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.4);
 }
-
+*/
 </style>

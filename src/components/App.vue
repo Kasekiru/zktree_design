@@ -35,7 +35,7 @@ export default {
       if (currentPath === "/vote") return Vote;
       if (currentPath === "/results") return Results;
       if (currentPath === "/validator") return ValidatorTool;
-      if (currentPath === "/guide") return Guide;
+      // if (currentPath === "/guide") return Guide;
     };
 
     return {
