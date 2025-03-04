@@ -6,11 +6,12 @@
       <div class="col-lg-6">
         <div class="text-center vstack gap-3">
           <!-- Gambar hidden untuk update URL masing-masing kandidat -->
-          <img id="hiddenImage1" src="./../../public/encoded_image_1.png" style="display: none;" @load="updateImageUrl1">
+          
+          <!-- <img id="hiddenImage1" src="./../../public/encoded_image_1.png" style="display: none;" @load="updateImageUrl1">
           <img id="hiddenImage2" src="./../../public/encoded_image_2.png" style="display: none;" @load="updateImageUrl2">
           <img id="hiddenImage3" src="./../../public/encoded_image_3.png" style="display: none;" @load="updateImageUrl3">
           <img id="hiddenImage4" src="./../../public/encoded_image_4.png" style="display: none;" @load="updateImageUrl4">
-          <img id="hiddenImage5" src="./../../public/encoded_image_5.png" style="display: none;" @load="updateImageUrl5">
+          <img id="hiddenImage5" src="./../../public/encoded_image_5.png" style="display: none;" @load="updateImageUrl5"> -->
 
           <div class="table-container" v-if="!winner">
             <table class="custom-table">
@@ -63,13 +64,21 @@ import * as ethers from "ethers";
 
 export default {
   setup() {
+    // const candidates = ref([
+    //   { id: "017815", name: "Jonatan", votes: 0, photo: "/encoded_image_1.png" },
+    //   { id: "018435", name: "Kennedy", votes: 0, photo: "/encoded_image_2.png" },
+    //   { id: "019482", name: "Sonata", votes: 0, photo: "/encoded_image_3.png" },
+    //   { id: "020985", name: "Michael", votes: 0, photo: "/encoded_image_4.png" },
+    //   { id: "028208", name: "Enellys", votes: 0, photo: "/encoded_image_5.png" }
+    // ]);
     const candidates = ref([
-      { id: "017815", name: "Jonatan", votes: 0, photo: "/encoded_image_1.png" },
-      { id: "018435", name: "Kennedy", votes: 0, photo: "/encoded_image_2.png" },
-      { id: "019482", name: "Sonata", votes: 0, photo: "/encoded_image_3.png" },
-      { id: "020985", name: "Michael", votes: 0, photo: "/encoded_image_4.png" },
-      { id: "028208", name: "Enellys", votes: 0, photo: "/encoded_image_5.png" }
+      { id: "017815", name: "Jonatan", votes: 0, photo: new URL('../assets/encoded_image_1.png', import.meta.url).href },
+      { id: "018435", name: "Kennedy", votes: 0, photo: new URL('../assets/encoded_image_2.png', import.meta.url).href },
+      { id: "019482", name: "Sonata", votes: 0, photo: new URL('../assets/encoded_image_3.png', import.meta.url).href },
+      { id: "020985", name: "Michael", votes: 0, photo: new URL('../assets/encoded_image_4.png', import.meta.url).href },
+      { id: "028208", name: "Enellys", votes: 0, photo: new URL('../assets/encoded_image_5.png', import.meta.url).href }
     ]);
+
     const winner = ref(null);
 
     // Fungsi untuk update gambar kandidat masing-masing
