@@ -72,7 +72,7 @@ export default {
     //   { id: "028208", name: "Enellys", votes: 0, photo: "/encoded_image_5.png" }
     // ]);
     const candidates = ref([
-      { id: "017815", name: "Jonatan", votes: 0, photo: new URL('../assets/encoded_image_1.png', import.meta.url).href },
+      { id: "017815", name: "Jonatan", votes: 0, photo: new URL('http://localhost:5000/1741272822670.png', import.meta.url).href },
       { id: "018435", name: "Kennedy", votes: 0, photo: new URL('../assets/encoded_image_2.png', import.meta.url).href },
       { id: "019482", name: "Sonata", votes: 0, photo: new URL('../assets/encoded_image_3.png', import.meta.url).href },
       { id: "020985", name: "Michael", votes: 0, photo: new URL('../assets/encoded_image_4.png', import.meta.url).href },

@@ -20,6 +20,15 @@
           <input type="text" id="other" v-model="formData.other" />
         </div>
 
+        <!-- Input Upload Gambar -->
+        <div class="form-group">
+          <label for="image">Upload Foto Kandidat</label>
+          <input type="file" id="image" @change="onFileChange" />
+        </div>
+
+        <!-- Tampilkan Gambar Setelah Diupload -->
+        <img v-if="formData.imageUrl" :src="formData.imageUrl" alt="Foto Kandidat" class="preview-img" />
+
         <button type="submit" class="submit-btn">Daftar</button>
       </form>
     </div>
@@ -27,6 +36,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -34,17 +45,55 @@ export default {
         id: "",
         name: "",
         other: "",
+        imageUrl: "", // Untuk menyimpan URL gambar yang diunggah
       },
+      imageFile: null,
     };
   },
   methods: {
-    submitForm() {
-      alert("Data berhasil dikirim!");
-      console.log("Form Data:", this.formData);
+    onFileChange(event) {
+      this.imageFile = event.target.files[0]; // Simpan file gambar yang dipilih
+    },
+    async submitForm() {
+      if (!this.imageFile) {
+        alert("Silakan pilih gambar terlebih dahulu.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("image", this.imageFile);
+
+      try {
+        // Upload gambar ke backend
+        const res = await axios.post("http://localhost:5000/upload", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+
+        // Simpan URL gambar yang diterima dari backend
+        // this.formData.imageUrl = `http://localhost:5000${res.data.imageUrl}`;
+        this.formData.imageUrl = res.data.imageUrl; // Pastikan langsung pakai URL yang diberikan backend
+
+        alert("Gambar berhasil diunggah!");
+      } catch (err) {
+        console.error("Upload error:", err);
+        alert("Gagal mengunggah gambar.");
+      }
     },
   },
 };
 </script>
+
+<style scoped>
+/* Tambahkan style untuk preview gambar */
+.preview-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+</style>
 
 <style scoped>
 * {
