@@ -6,31 +6,33 @@
       <p class="sub-text">Pastikan sesuai dengan ID</p>
       <hr class="divider" />
 
-      <form @submit.prevent="submitForm" class="form">
-        <div class="form-group">
-          <label for="id">Nomor ID</label>
-          <input type="text" id="id" v-model="formData.id" />
-        </div>
-        <div class="form-group">
-          <label for="name">Nama</label>
-          <input type="text" id="name" v-model="formData.name" />
-        </div>
-        <div class="form-group">
-          <label for="other">Data diri lainnya</label>
-          <input type="text" id="other" v-model="formData.other" />
-        </div>
-
-        <!-- Input Upload Gambar -->
-        <div class="form-group">
-          <label for="image">Upload Foto Kandidat</label>
-          <input type="file" id="image" @change="onFileChange" />
+      <div class="form-wrapper">
+        <div class="form-left">
+          <div class="form-group">
+            <label for="id">Nomor ID</label>
+            <input type="text" id="id" v-model="formData.id" />
+          </div>
+          <div class="form-group">
+            <label for="name">Nama</label>
+            <input type="text" id="name" v-model="formData.name" />
+          </div>
+          <div class="form-group">
+            <label for="other">Data diri lainnya</label>
+            <input type="text" id="other" v-model="formData.other" />
+          </div>
         </div>
 
-        <!-- Tampilkan Gambar Setelah Diupload -->
-        <img v-if="formData.imageUrl" :src="formData.imageUrl" alt="Foto Kandidat" class="preview-img" />
+        <div class="form-right">
+          <div class="upload-container">
+            <label for="image">Upload Foto Kandidat</label>
+            <input type="file" id="image" @change="onFileChange" />
+            <img v-if="formData.imageUrl" :src="formData.imageUrl" alt="Foto Kandidat" class="preview-img" />
+          </div>
+        </div>
+      </div>
 
-        <button type="submit" class="submit-btn">Daftar</button>
-      </form>
+      <button type="button" class="submit-btn" @click="submitForm">Daftar</button>
+
     </div>
   </div>
 </template>
@@ -51,8 +53,15 @@ export default {
     };
   },
   methods: {
+    // onFileChange(event) {
+    //   this.imageFile = event.target.files[0]; // Simpan file gambar yang dipilih
+    // },
     onFileChange(event) {
-      this.imageFile = event.target.files[0]; // Simpan file gambar yang dipilih
+      const file = event.target.files[0];
+      if (file) {
+        this.imageFile = file;
+        this.formData.imageUrl = URL.createObjectURL(file); // Menampilkan preview gambar langsung
+      }
     },
     async submitForm() {
       if (!this.imageFile) {
@@ -148,31 +157,6 @@ export default {
   width: 100%;
 }
 
-.form-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  width: 50%; /* ubah disini tinggal hapus aja biar cantik */
-  margin-left: 50px; /* ubah disini tinggal hapus aja biar cantik */
-}
-
-.form-group label {
-  flex: 1;
-  text-align: left;
-  /* font-weight: bold; */
-}
-
-.form-group input {
-  flex: 2;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1rem;
-  background: #d3d3d3;
-}
-
 .submit-btn {
   display: block;
   width: 20%;
@@ -195,4 +179,60 @@ h1 {
   background-color: transparent;
   font-size: 2rem;
 }
+
+
+.form-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 80%;
+  margin: auto;
+}
+
+.form-left {
+  flex: 3; /* Lebih besar agar tidak terlihat sempit */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Jarak antara label dan input */
+}
+
+.form-group label {
+  min-width: 150px; /* Lebar minimal supaya tidak kepotong */
+  /* text-align: right; */
+  font-size: 1rem;
+}
+
+.form-group input {
+  flex: 1;
+  /* width: 100%; */
+  width: 300px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background: #d3d3d3;
+}
+
+.form-right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 </style>
